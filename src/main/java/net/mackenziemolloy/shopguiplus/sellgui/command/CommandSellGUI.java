@@ -379,7 +379,9 @@ public final class CommandSellGUI implements TabExecutor {
             ItemStack singleItem = new ItemStack(i);
             singleItem.setAmount(1);
 
-            if (itemStackSellPriceCache.getOrDefault(singleItem, new ShopItemPriceValue(null, 0.0)).getSellPrice() > 0 || ShopGuiPlusApi.getItemStackPriceSell(player, i) > 0) {
+
+            boolean hasCustomName = singleItem.getItemMeta() != null && singleItem.getItemMeta().hasDisplayName();
+            if (!hasCustomName && (itemStackSellPriceCache.getOrDefault(singleItem, new ShopItemPriceValue(null, 0.0)).getSellPrice() > 0 || ShopHandler.getItemSellPrice(i, player) > 0)) {
                 itemAmount += i.getAmount();
 
                 @Deprecated
